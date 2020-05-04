@@ -4,6 +4,9 @@ import { Router } from "@angular/router";
 import { ApiService } from "../service/api.service"
 import { User } from '../models/actors/user';
 import { Administrator } from '../models/actors/administrator';
+import { ApiResponse } from '../models/system/api-response';
+import { Seller } from '../models/actors/seller';
+import { Buyer } from '../models/actors/buyer';
 
 @Component({
   selector: 'app-login',
@@ -29,17 +32,17 @@ export class LoginComponent implements OnInit {
       username: this.loginForm.controls.username.value,
       password: this.loginForm.controls.password.value
     }
-    this.apiService.login(this.loginPayload).subscribe(data => {
-      debugger;
-      if (data.status === 200) {
-        if(data.result instanceof Administrator){
-          console.log("admin");
-        }
-      } else {
-        this.invalidLogin = true;
-        alert(data.message);
+    this.apiService.login(this.loginPayload).subscribe((user: User) => {
+      if (isAdministrator(user)) {
+        alert("Succesfully logged admin");
+      } else if (isBuyer(user)) {
+        this.router.navigate(['home-buyer'], user)
+      } else if (isSeller(user)) {
+        alert("Succesfully logged buyer");
       }
-    });
+    },
+      error => this.invalidLogin = true
+    );
   }
 
   ngOnInit() {
@@ -49,4 +52,16 @@ export class LoginComponent implements OnInit {
     });
   }
 
+}
+
+function isAdministrator(user: User): user is Administrator {
+  return (user as Administrator).deals !== undefined;
+}
+
+function isSeller(user: User): user is Seller {
+  return (user as Seller).asks !== undefined;
+}
+
+function isBuyer(user: User): user is Buyer {
+  return (user as Buyer).bets !== undefined;
 }
