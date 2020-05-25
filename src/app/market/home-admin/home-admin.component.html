@@ -1,0 +1,23 @@
+<div class="items">
+    <h3>Items</h3>
+    <table id="items_table">
+      <thead>
+        <tr class="border_bottom">
+          <th>#ID</th>
+          <th>Item</th>
+          <th>Price</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let deal of deals" class="border_bottom">
+          <td>{{ deal.id }}</td>
+          <td>{{ deal.bet.item.name }}</td>
+          <td>{{ deal.ask.ask }}</td>
+          <td>
+            <button (click)=approveDeal(deal) type="button">Approve</button>
+          </td>  
+        </tr>
+      </tbody>
+    </table>
+  </div>

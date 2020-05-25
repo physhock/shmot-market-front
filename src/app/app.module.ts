@@ -9,12 +9,20 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ApiService } from './service/api.service';
 import { HomeBuyerComponent } from './market/home-buyer/home-buyer.component';
+import { MatDialogModule } from '@angular/material'
+import { ModalWindowComponent } from './market/modal-window/modal-window.component';
+import { HomeSellerComponent } from './market/home-seller/home-seller.component';
+import { HomeAdminComponent } from './market/home-admin/home-admin.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeBuyerComponent
+    HomeBuyerComponent,
+    ModalWindowComponent,
+    HomeSellerComponent,
+    HomeAdminComponent
   ],
   imports: [
     BrowserModule,
@@ -22,7 +30,11 @@ import { HomeBuyerComponent } from './market/home-buyer/home-buyer.component';
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatDialogModule
+  ],
+  entryComponents: [
+    ModalWindowComponent
   ],
   providers: [ApiService],
   bootstrap: [AppComponent]

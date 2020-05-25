@@ -1,19 +1,69 @@
-<div class="col-md-6 user-container">
-    <h2 style="margin: auto"> User Details</h2>
-    <table class="table table-striped">
-      <thead>
-      <tr>
-        <th class="hidden">Id</th>
+<h1 style="text-align:center">Hello {{buyer.username}}!</h1>
+
+<div class="items">
+  <h3>Items</h3>
+  <table id="items_table">
+    <thead>
+      <tr class="border_bottom">
+        <th>#ID</th>
         <th>Name</th>
         <th>Size</th>
+        <th>Ask</th>
+        <th>Action</th>
       </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let item of items">
-        <td class="hidden"></td>
-        <td></td>
-        <td></td>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of items" class="border_bottom">
+        <td>{{ item.id }}</td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.size }}</td>
+        <td>
+          <ng-container *ngFor="let ask of asks">
+            <ng-container *ngIf="ask.item.id === item.id">{{ask.ask}}</ng-container>
+          </ng-container>
+        </td>
+        <td>
+          <button (click)=placeBet(item) type="button">Bet</button>
+        </td>
       </tr>
-      </tbody>
-    </table>
-  </div>
+    </tbody>
+  </table>
+</div>
+
+<div class="bets">
+  <h3>Bets</h3>
+  <table id="bets_table">
+    <thead>
+      <tr class="border_bottom">
+        <th>#item_ID</th>
+        <th>Bet</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let bet of buyer.bets" class="border_bottom">
+        <td>{{ bet.item.id }}</td>
+        <td>{{ bet.bet }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="orders">
+  <h3>Bets</h3>
+  <table id="bets_table">
+    <thead>
+      <tr class="border_bottom">
+        <th>#item_ID</th>
+        <th>Item name</th>
+        <th>Tracking number</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let order of buyer.orders" class="border_bottom">
+        <td>{{ order.id }}</td>
+        <td>{{ order.item.name }}</td>
+        <td>{{ order.trackingId }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

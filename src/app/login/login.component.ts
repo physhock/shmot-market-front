@@ -34,11 +34,11 @@ export class LoginComponent implements OnInit {
     }
     this.apiService.login(this.loginPayload).subscribe((user: User) => {
       if (isAdministrator(user)) {
-        alert("Succesfully logged admin");
+        this.router.navigate(['home-admin'], {state: {user: user}});
       } else if (isBuyer(user)) {
-        this.router.navigate(['home-buyer'], user)
+        this.router.navigate(['home-buyer'], {state: {user: user}});
       } else if (isSeller(user)) {
-        alert("Succesfully logged buyer");
+        this.router.navigate(['home-seller'], {state: {user: user}});
       }
     },
       error => this.invalidLogin = true

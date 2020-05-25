@@ -1,0 +1,31 @@
+<h1 style="text-align:center">Hello {{seller.username}}!</h1>
+
+<div class="items">
+  <h3>Items</h3>
+  <table id="items_table">
+    <thead>
+      <tr class="border_bottom">
+        <th>#ID</th>
+        <th>Name</th>
+        <th>Size</th>
+        <th>Bet</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of items" class="border_bottom">
+        <td>{{ item.id }}</td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.size }}</td>
+        <td>
+          <ng-container *ngFor="let bet of bets">
+            <ng-container *ngIf="bet.item.id === item.id">{{bet.bet}}</ng-container>
+          </ng-container>
+        </td>
+        <td>
+          <button (click)=placeAsk(item) type="button">Ask</button>
+        </td>   
+      </tr>
+    </tbody>
+  </table>
+</div>
