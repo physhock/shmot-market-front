@@ -10,15 +10,15 @@ import { ApiService } from 'src/app/service/api.service';
 })
 export class HomeAdminComponent implements OnInit {
 
-  administator: Administrator;
+  administrator: Administrator;
   deals: Deal[];
 
   constructor(public apiService: ApiService) { }
 
   ngOnInit() {
-    this.administator = history.state.user;
+    this.administrator = history.state.user;
     this.apiService
-      .loadDeals(this.administator.id)
+      .loadDeals(this.administrator.id)
       .subscribe((deals: Deal[]) => {
         this.deals = deals;
       }, error => console.log(error));
